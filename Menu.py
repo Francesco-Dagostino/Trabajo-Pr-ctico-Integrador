@@ -1,150 +1,140 @@
 # Campagnaro Thiago - Dagostino Francesco 
-from clases import Estudiante,Profesor,Curso
-from contraseña import contrasenia_aleatoria
+import Clases as C
 
-#----------------------------------------------------------------------------------------------------------------- 
-   
-estudiante1 = Estudiante ("1000", 2023, "Fran", "Dagostino", "alum1@gmail.com", "1234")
-Estudiante.estudiantes.append(estudiante1)
-estudiante2 = Estudiante ("1001", 2023, "Raul", "Perez", "alum2@gmail.com", "5678")
-Estudiante.estudiantes.append(estudiante2)
+# ---------------------------------------------  MENU  ---------------------------------------------------------
 
-profesor1 = Profesor ("Ingeniero civil", 2017, "Alberto", "Gonzalez", "profe1@gmail.com", "1234")
-Profesor.profesores.append(profesor1)
-profesor2 = Profesor ("Programador", 2010, "Jose", "Matuid", "profe2@gmail.com", "5678")
-Profesor.profesores.append(profesor2)   
+def menu():
+    while True:
+        print("\nMenú Principal\n")
+        print("1. Ingresar como alumno")
+        print("2. Ingresar como profesor")
+        print("3. Ver cursos")
+        print("4. Salir")
+        opcion = input("Ingrese una opción: ")
 
+        if opcion == "1":
+            email_a_validar = str(input("Ingrese su mail: "))
+            contrasenia_a_validar = str(input("Ingrese su contraseña: "))
+            validacion = C.Estudiante.validar_credenciales(
+                email_a_validar, contrasenia_a_validar
+            )
+            if validacion == True:
+                # ------------------------ MENU ALUMNO ---------------------------
+                print("\nAcceso Exitoso")
+                while True:
+                    print("\nSub menú alumno")
+                    print("1. Matricularse a un curso")
+                    print("2. Ver cursos matriculados")
+                    print("3. Volver al menú principal")
+                    sub_opcion = input("Seleccione una opción: ")
 
-# -----------------------------------------------  Menu   ---------------------------------------------------------------
-
-opcion = 0
-while opcion != 4:
-    print("Menu:")
-    print("1- Ingresar cómo alumno")
-    print("2- Ingresar cómo profesor")
-    print("3- Ver cursos")
-    print("4- Salir\n")
-    
-    opcion = int(input("Seleccione una opcion: "))
-    if opcion == 1:
-        email = str(input("Ingrese el mail: "))
-        contrasenia = str(input("Ingrese su contraseña: "))
-        email_encontrado = False
-        contrasenia_encontrada = False
-        for e in Estudiante.estudiantes:
-            if email == e.email:
-                if e.validar_credenciales(email, contrasenia) == True:
-                    print("\nSu acceso fue exitoso")
-                    contrasenia_encontrada = True
-                    
-                    #----------------------------------- SUBMENU ALUMNO: -------------------------------------
-                    sub_opcion = 0
-                    while sub_opcion != 3:
-                        print("\n1. Matricularse a un curso")
-                        print("2. Ver curso") 
-                        print("3. Volver al menu principal")
-                        sub_opcion = int(input("Ingrese una opcion: "))
-                        if sub_opcion == 1:
-                            mis_cursos = Curso.cursos
-                            #for para mostar cursos
-                            print("\nCursos disponibles:")
-                            for curso in Curso.cursos:
-                                print(curso)
-                            while True:
-                                seleccion = input("\nIngrese la contraseña de matriculacion del curso al que desea inscribirse (o 'n' para salir): ")
-                                if seleccion == 'n':
-                                    break
-                                elif seleccion == "n001" or seleccion == "n002" or seleccion == "n003" or seleccion == "n004" or seleccion == "n005" or seleccion == "n006":
-                                    Curso.cursos.append(mis_cursos)    
-
-                        elif sub_opcion == 2:
-                            print("\nCursos en los que te inscribiste:")
-                            print(mis_cursos)
-                                
-                        else:
-                            print("\nLista de curso (seleccione el curso en que esta matriculado): \n")
-                            print("1 Programación I")
+                    if sub_opcion == "1":
+                        if len(C.cursos_disponibles) > 0:
+                            print("\n1 Programación I")
                             print("2 Programación II")
                             print("3 Laboratorio II")
                             print("4 Ingles I")
                             print("5 Ingles II\n")
-                            elegir = input("Eliga la materia: ")
-                            if elegir == "1":
-                              print("\nProgramacion I \ntpi.pdf\npractica1.pdf...\n")
-                            elif elegir == "2":
-                              print("\nLaboratorio I\ntpi.pdf\npractica 1...\n") 
-                            elif elegir == "3":
-                               print("\nLaboratorio II\ntpi.pdf\npractica 1...\n")  
-                            elif elegir == "4":
-                              print("\nIngles I\ntpi.pdf\npractica 1...\n") 
-                            elif elegir == "5":
-                              print("\nIngles II\ntpi.pdf\npractica 1...\n") 
+                            sub_opcion2 = input("Seleccione un curso: ")
+                            if sub_opcion2 == "1":
+                                C.Usuario1.matricular_en_curso(C.cursos_disponibles[0])
+                            if sub_opcion2 == "2":
+                                C.Usuario1.matricular_en_curso(C.cursos_disponibles[1])
+                            if sub_opcion2 == "3":
+                                C.Usuario1.matricular_en_curso(C.cursos_disponibles[2])
+                            if sub_opcion2 == "4":
+                                C.Usuario1.matricular_en_curso(C.cursos_disponibles[3])
+                            if sub_opcion2 == "5":
+                                C.Usuario1.matricular_en_curso(C.cursos_disponibles[4])
                             else:
-                             break 
-                            print("\nVolviendo al menu principal.....\n") 
-                            
-                    
-                if contrasenia_encontrada == False:
-                    "Contraseña incorrecta"
-                email_encontrado = True       
-        if email_encontrado == False:
-            print("Email inexistete. Comunicarse con alumnado")
-                           
-            
-    elif opcion == 2:
-        print("Ingresando como Profesor...")
-        email = str(input("Ingrese email: "))
-        contrasenia = str(input("Ingrese su contraseña: "))
-        email_encontrado = False
-        contrasenia_encontrada = False
-        for p in Profesor.profesores:
-            if email == p.email:
-                if p.validar_credenciales(email, contrasenia) == True:
-                    print("Su acceso fue exitoso\n")
-                    contrasenia_encontrada = True
-                if contrasenia_encontrada == False:
-                    "Contraseña incorrecta"
-        if email_encontrado == False:
-            print("Email inexistete. Comunicarse con alumnado")  
-            
-            
-            #--------------------------  SUBMENU PROFESOR    -----------------------------------: 
-            sub_opcion = 0
-            while sub_opcion != 3:
-                print("\nSubmenu Profesor:")
-                print("1. Dictar curso")
-                print("2. Ver curso") 
-                print("3. Volver al menú principal.")
-                sub_opcion = int(input("Ingrese una opcion: "))
-                if sub_opcion == 1:
-                    nombre_curso = input("\nIngrese el nombre del nuevo curso: ")
-                    contrasenia_aleatoria 
-                    mis_cursos = Curso(nombre_curso, contrasenia_aleatoria)
-                    Curso.cursos.append(mis_cursos)
-                    if nombre_curso != mis_cursos:
-                        print("\nCurso dado de alta exitosamente:")
-                        print(f"Nombre del curso: {mis_cursos.nombre}")
-                        print("Clave matriculacion: ", contrasenia_aleatoria, "\n")
-                    elif nombre_curso == {mis_cursos.nombre_curso} : 
-                        print("Curso ya ingresado.")
+                                print("\nSeleccione una opcion correcta\n")
+                        else:
+                            print("\nTodavia no hay ningun curso dado de alta\n")
+                    elif sub_opcion == "2":
+                        if len(C.cursos_disponibles) > 0:
+                            cont = 0
+                            for i in C.Usuario1.mis_cursos:
+                                cont = cont + 1
+                                print(f"\n{cont} {i}")
+                            sub_opcion3 = int(
+                                input("Ingrese numero de la materia para verla: ")
+                            )
+                            if sub_opcion3 == cont:
+                                print(i)
+                                print("tpi.pdf")
+                                print("practica1.pdf")
+                        else:
+                            print("\nNo hay cursos dados de alta\n")
+                    elif sub_opcion == "3":
                         break
-                    
-                elif sub_opcion == 2:
-                    print("\nEl Profesor dicta las siguientes materias: ")
-                    print(mis_cursos.nombre)
-                    if mis_cursos.nombre == None:
-                        print("El profesor no tiene ningun curso dictado | Debe darse de alta en el alumnado!")
-                else: 
-                    print("\nVolviendo al menú principal....\n")       
-        
-                    
-    elif opcion == 3:
-        print("Cursos disponibles:\n")
-        lista_curso_ordenada = sorted(Curso.cursos, key=lambda x: x.nombre) #ordena alfabeticamente!
-        for curso in lista_curso_ordenada:
-            print(f"{curso.nombre} | carrera: Tecnicatura Universitaria en Programación\n")
+                    else:
+                        print("\nSeleccione una opcion correcta\n")
+            else:
+                print("\nEmail no registrado, debe de darse de alta en el alumnado\n")
+                
+                
+        elif opcion == "2":
+            email_a_validar = str(input("Ingrese su mail: "))
+            contrasenia_a_validar = str(input("ingrese su contraseña: "))
+            validacion = C.Profesor.validar_credenciales(
+                email_a_validar, contrasenia_a_validar
+            )
+            if validacion == True:
+                #---------------------- MENU PROFESOR ---------------------------------------
+                
+                print("\nAcceso exitoso como Profesor")
+                while True:
+                    print("\nSub menú Profesor")
+                    print("1. Dictar curso")
+                    print("2. Ver cursos")
+                    print("3. Volver al menú principal")
+                    sub_opcion = input("\nSeleccione una opción: ")
+
+                    if sub_opcion == "1":
+                        nombre_curso = input(
+                            "Ingrese el nombre del curso a dictar(Ingrese la primer letra en mayuscula): "
+                        )
+                        if (
+                            nombre_curso == "Ingles I"
+                            or nombre_curso == "Ingles II"
+                            or nombre_curso == "Laboratorio I"
+                            or nombre_curso == "Laboratorio II"
+                            or nombre_curso == "Programacion I"
+                            or nombre_curso == "Programacion II"
+                        ):
+                            nuevo_curso = C.Curso(nombre_curso)
+                            C.cursos_disponibles.append(nuevo_curso)
+                            C.Usuario2.dictar_curso(nuevo_curso)
+                            print(f"Curso dado de alta: {nuevo_curso._nombre_Curso}")
+                            print(
+                                f"Contraseña de matriculación: {nuevo_curso._contrasenia_matriculacion}"
+                            )
+                        else:
+                            print(
+                                "\nEsta materia no esta en la carrera | Volviendo al menu.."
+                            )
+                    elif sub_opcion == "2":
+                        cont = 0
+                        for i in C.Usuario2.mis_cursos:
+                            cont = cont + 1
+                            print(f"{cont} {i}")
+                    elif sub_opcion == "3":
+                        break
+                    else:
+                        print("\nSeleccione una opcion correcta\n")
+            else:
+                print("\nEmail no registrado, debe de darse de alta en el alumnado\n")
+                
+                
+        elif opcion == "3":
+            lista_ordenada = sorted(C.cursos_de_la_carrera, key=lambda x: x["Materia"])
+            for diccionario in lista_ordenada:
+                print(diccionario)
+                
+        elif opcion == "4": 
+            print("\nHasta luego!") 
+            print("Cerrando el sitema......\n")
+            break     
             
-    else:
-        print("Hasta luego...") 
-        print("Saliendo del sistema")
-        break
+menu()              
+

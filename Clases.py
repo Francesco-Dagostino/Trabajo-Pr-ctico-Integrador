@@ -1,6 +1,8 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod   #ABC (Abstract Base Class), abstractmethod
 import random
 
+#abstracta es una clase que no puede ser instanciada directamente y que generalmente contiene uno o más métodos abstractos
+  
 class Usuario(ABC):
     def __init__(self, nombre, apellido, email, contrasenia):
         self._nombre = nombre
@@ -45,7 +47,7 @@ class Curso:
         print(f"Se ha agregado el archivo {nuevo_archivo} al curso {self._nombre_Curso}")
         
     def generar_codigo(self):
-        codigo = str(random.randint(10, 99))  #rango de creacion
+        codigo = int(random.randint(10, 99))  #rango de creacion
         return codigo    
         
     
@@ -56,7 +58,7 @@ class Estudiante(Usuario):
         super().__init__(nombre, apellido, email, contrasenia)
         self._legajo = legajo
         self._anio_inscripcion_carrera = anioInscripcion
-        listadeAlumnos.append(self)
+        listadeAlumnos.append(self)   #indica que cada vez que se crea una nueva instancia de la clase Estudiante, esa instancia se agrega a la lista listadeAlumnos.
         self.mis_cursos = []
 
     def validar_credenciales(email, contrasenia):
@@ -125,7 +127,7 @@ Usuario2 = Profesor("Alberto", "Gonzales", "profe@gmail.com", "12", "Programador
 
 cursos_disponibles = []
 cursos_de_la_carrera = [
-    {"Materia": "Inglés I", "Carrera": "Tecnicatura Universitaria en Programacion"},                 #ORDENAR     yy ANTES/DESPUES
+    {"Materia": "Inglés I", "Carrera": "Tecnicatura Universitaria en Programacion"},                 
     {"Materia": "Programación II", "Carrera": "Tecnicatura Universitaria en Programacion"},
     {"Materia": "Inglés II", "Carrera": "Tecnicatura Universitaria en Programacion"},
     {"Materia": "Laboratorio II", "Carrera": "Tecnicatura Universitaria en Programacion"},

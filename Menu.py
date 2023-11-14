@@ -1,6 +1,6 @@
 # Campagnaro Thiago - Dagostino Francesco 
 import Clases as C
-
+# Importas la clase y la renombras con as "c"
 
 # ---------------------------------------------  MENU  ---------------------------------------------------------
 def menu():
@@ -41,13 +41,13 @@ def menu():
                             sub_opcion2 = input("Ingrese por teclado el número (según el orden en el que registro el dictado del profesor, es decir, 1...2...3): ")
                             if sub_opcion2 == "1":
                                 C.Usuario1.matricular_en_curso(C.cursos_disponibles[0])
-                            if sub_opcion2 == "2":
+                            elif sub_opcion2 == "2":
                                 C.Usuario1.matricular_en_curso(C.cursos_disponibles[1])
-                            if sub_opcion2 == "3":
+                            elif sub_opcion2 == "3":
                                 C.Usuario1.matricular_en_curso(C.cursos_disponibles[2])
-                            if sub_opcion2 == "4":
+                            elif sub_opcion2 == "4":
                                 C.Usuario1.matricular_en_curso(C.cursos_disponibles[3])
-                            if sub_opcion2 == "5":
+                            elif sub_opcion2 == "5":
                                 C.Usuario1.matricular_en_curso(C.cursos_disponibles[4])
                             else:
                                 print("\nSeleccione una opcion correcta\n")
@@ -56,10 +56,9 @@ def menu():
                             
                     elif sub_opcion == "2":
                         print("Desmatriculación!!") 
-                        if len(C.Usuario1.mis_cursos) > 0:
-                            cont = 0
-                            for i, curso in enumerate(C.Usuario1.mis_cursos, 1):
-                                print(f"{i}. {curso._nombre_Curso}")
+                        if len(C.Usuario1.mis_cursos) > 0: #Se está comprobando si la longitud de la lista C.Usuario1.mis_cursos es mayor que cero. 
+                            for i, curso in enumerate(C.Usuario1.mis_cursos, 1):  #Al usar enumerate con un segundo argumento de 1, el primer valor de i será 1, el segundo será 2, y así sucesivamente
+                                print(f"{i}. {curso._nombre_Curso}")              #1 se utiliza para indicar que el contador i debe comenzar desde 1 en lugar de 0 al enumerar los elementos
                             sub_opcion2 = input("Ingrese el número del curso para desmatricularse: ")
                             try:
                                 sub_opcion2 = int(sub_opcion2)
@@ -75,8 +74,8 @@ def menu():
                        
                         
                     elif sub_opcion == "3":
-                        if len(C.cursos_disponibles) > 0:
-                            cont = 0
+                        if len(C.cursos_disponibles) > 0: #El len verifica si hay cursos disponibles para mostrar. 
+                            cont = 0                      #contador se usa para numerar los cursos cuando se imprimen más adelante.
                             for i in C.Usuario1.mis_cursos:
                                 cont = cont + 1
                                 print(f"\n{cont} {i}")
@@ -128,7 +127,7 @@ def menu():
                         ):
                             nuevo_curso = C.Curso(nombre_curso)
                             C.cursos_disponibles.append(nuevo_curso)
-                            C.Usuario2.dictar_curso(nuevo_curso)
+                            C.Usuario2.dictar_curso(nuevo_curso)  #llama a la funcion para crear contraseña. 
                             print(f"Curso dado de alta: {nuevo_curso._nombre_Curso}")
                             print(
                                 f"Contraseña de matriculación: {nuevo_curso._contrasenia_matriculacion}"
@@ -140,7 +139,7 @@ def menu():
                     elif sub_opcion == "2":
                         print("\nCursos disponibles:")
                         if len(C.cursos_disponibles) > 0:
-                            for i, curso in enumerate(C.cursos_disponibles):
+                            for i, curso in enumerate(C.cursos_disponibles): #verifica curso disponibles.
                                 print(f"{i + 1}. {curso._nombre_Curso}")
                                 curso_seleccionado = input("Seleccione un curso para ver información detallada (ingrese el número): ")
                             try:
@@ -158,7 +157,7 @@ def menu():
                                         formato_archivo = input("Ingrese el formato del archivo: ")
                                         curso.agregar_archivo(nombre_archivo, formato_archivo)  
                                     else: 
-                                        print("\nVolviendo al menu: ")    
+                                        print("\nVolviendo al menu ")    
                                 else:
                                     print("Número de curso no válido.")
                             except ValueError:
@@ -175,9 +174,9 @@ def menu():
                 
                 
         elif opcion == "3":
-            lista_ordenada = sorted(C.cursos_de_la_carrera, key=lambda x: x["Materia"])
-            for diccionario in lista_ordenada:
-                print(diccionario)
+            lista_ordenada = sorted(C.cursos_de_la_carrera, key=lambda x: x["Materia"]) #Usa la clave "Materia" para ordenar. 
+            for diccionario in lista_ordenada:   #Itera sobre cada diccionario en la lista ordenada.
+                print(diccionario)            #La función sorted se utiliza con una función lambda como argumento key, que especifica cómo debe ordenarse la lista.
                 
         elif opcion == "4": 
             print("\nHasta luego!") 
